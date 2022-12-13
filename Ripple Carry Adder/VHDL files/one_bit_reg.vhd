@@ -17,10 +17,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -31,20 +29,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity one_bit_reg is
-    Port ( reg_in : in STD_LOGIC;
-           reg_out : out STD_LOGIC;
-           clk : in STD_LOGIC);
-end one_bit_reg;
+ENTITY one_bit_reg IS
+    PORT (
+        reg_in : IN STD_LOGIC;
+        reg_out : OUT STD_LOGIC;
+        clk : IN STD_LOGIC);
+END one_bit_reg;
 
-architecture Behavioral of one_bit_reg is
+ARCHITECTURE Behavioral OF one_bit_reg IS
 
-begin
-process(clk) is
-begin
-    if rising_edge(clk) then
-        reg_out <= reg_in;
-    end if;
-end process;
+BEGIN
+    PROCESS (clk) IS
+    BEGIN
+        IF rising_edge(clk) THEN
+            reg_out <= reg_in;
+        END IF;
+    END PROCESS;
 
-end Behavioral;
+END Behavioral;
