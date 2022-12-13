@@ -17,10 +17,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -31,37 +29,38 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity second_level_4bit is
-    Port ( p_32 : in STD_LOGIC_VECTOR (31 downto 0);
-           g_32 : in STD_LOGIC_VECTOR (31 downto 0);
-           p_8 : out STD_LOGIC_VECTOR (7 downto 0);
-           g_8 : out STD_LOGIC_VECTOR (7 downto 0));
-end second_level_4bit;
+ENTITY second_level_4bit IS
+    PORT (
+        p_32 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+        g_32 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+        p_8 : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+        g_8 : OUT STD_LOGIC_VECTOR (7 DOWNTO 0));
+END second_level_4bit;
 
-architecture Behavioral of second_level_4bit is
-component second_level_propagate_4bit is
-    Port ( p_32 : in STD_LOGIC_VECTOR (31 downto 0);
-           p_8 : out STD_LOGIC_VECTOR (7 downto 0));
-end component;
+ARCHITECTURE Behavioral OF second_level_4bit IS
+    COMPONENT second_level_propagate_4bit IS
+        PORT (
+            p_32 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+            p_8 : OUT STD_LOGIC_VECTOR (7 DOWNTO 0));
+    END COMPONENT;
 
-component second_level_generate_4bit is
-    Port ( g_32 : in STD_LOGIC_VECTOR (31 downto 0);
-           p_32 : in STD_LOGIC_VECTOR (31 downto 0);
-           g_8 : out STD_LOGIC_VECTOR (7 downto 0));
-end component;
+    COMPONENT second_level_generate_4bit IS
+        PORT (
+            g_32 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+            p_32 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+            g_8 : OUT STD_LOGIC_VECTOR (7 DOWNTO 0));
+    END COMPONENT;
 
---    attribute KEEP_HIERARCHY : string;
---    attribute KEEP_HIERARCHY of second_level_gen : label is "YES";
---    attribute KEEP_HIERARCHY of second_level_pro : label is "YES";
-    attribute DONT_TOUCH : string;
-    attribute DONT_TOUCH of second_level_gen : label is "YES";
-    attribute DONT_TOUCH of second_level_pro : label is "YES";
-begin
-second_level_pro: second_level_propagate_4bit port map(
-                                p_32 => p_32,p_8 => p_8);
+    --    attribute KEEP_HIERARCHY : string;
+    --    attribute KEEP_HIERARCHY of second_level_gen : label is "YES";
+    --    attribute KEEP_HIERARCHY of second_level_pro : label is "YES";
+    ATTRIBUTE DONT_TOUCH : STRING;
+    ATTRIBUTE DONT_TOUCH OF second_level_gen : LABEL IS "YES";
+    ATTRIBUTE DONT_TOUCH OF second_level_pro : LABEL IS "YES";
+BEGIN
+    second_level_pro : second_level_propagate_4bit PORT MAP(
+        p_32 => p_32, p_8 => p_8);
 
-second_level_gen:second_level_generate_4bit port map(
-                                g_32 => g_32, p_32 => p_32,g_8 => g_8);
-
-
-end Behavioral;
+    second_level_gen : second_level_generate_4bit PORT MAP(
+        g_32 => g_32, p_32 => p_32, g_8 => g_8);
+END Behavioral;

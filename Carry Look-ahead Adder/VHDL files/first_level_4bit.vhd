@@ -17,10 +17,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -31,41 +29,44 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity first_level_4bit is
-    Port ( x_128 : in STD_LOGIC_VECTOR (127 downto 0);
-           y_128 : in STD_LOGIC_VECTOR (127 downto 0);
-           gen_32 : out STD_LOGIC_VECTOR (31 downto 0);
-           p_32 : out STD_LOGIC_VECTOR (31 downto 0));
-end first_level_4bit;
+ENTITY first_level_4bit IS
+    PORT (
+        x_128 : IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+        y_128 : IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+        gen_32 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+        p_32 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0));
+END first_level_4bit;
 
-architecture Behavioral of first_level_4bit is
-component first_level_propagate_4bit is
-    Port ( x_128 : in STD_LOGIC_VECTOR (127 downto 0);
-           y_128 : in STD_LOGIC_VECTOR (127 downto 0);
-           p_32 : out STD_LOGIC_VECTOR (31 downto 0));
-end component;
-component first_level_generate_4bit is
-    Port ( x_128 : in STD_LOGIC_VECTOR (127 downto 0);
-           y_128 : in STD_LOGIC_VECTOR (127 downto 0);
-           gen_32 : out STD_LOGIC_VECTOR (31 downto 0));
-end component;
+ARCHITECTURE Behavioral OF first_level_4bit IS
+    COMPONENT first_level_propagate_4bit IS
+        PORT (
+            x_128 : IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+            y_128 : IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+            p_32 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0));
+    END COMPONENT;
+    COMPONENT first_level_generate_4bit IS
+        PORT (
+            x_128 : IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+            y_128 : IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+            gen_32 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0));
+    END COMPONENT;
 
---    attribute KEEP_HIERARCHY : string;
---    attribute KEEP_HIERARCHY of first_level_gen : label is "YES";
---    attribute KEEP_HIERARCHY of first_level_pro : label is "YES";
-    attribute DONT_TOUCH : string;
-    attribute DONT_TOUCH of first_level_gen : label is "YES";
-    attribute DONT_TOUCH of first_level_pro : label is "YES";
-begin
-first_level_gen:first_level_generate_4bit 
-Port MAP( x_128 => x_128,
-          y_128 => y_128,
-          gen_32 => gen_32);
+    --    attribute KEEP_HIERARCHY : string;
+    --    attribute KEEP_HIERARCHY of first_level_gen : label is "YES";
+    --    attribute KEEP_HIERARCHY of first_level_pro : label is "YES";
+    ATTRIBUTE DONT_TOUCH : STRING;
+    ATTRIBUTE DONT_TOUCH OF first_level_gen : LABEL IS "YES";
+    ATTRIBUTE DONT_TOUCH OF first_level_pro : LABEL IS "YES";
+BEGIN
+    first_level_gen : first_level_generate_4bit
+    PORT MAP(
+        x_128 => x_128,
+        y_128 => y_128,
+        gen_32 => gen_32);
 
-first_level_pro:first_level_propagate_4bit 
-Port MAP( x_128 => x_128,
-          y_128 => y_128,
-          p_32 => p_32);
-
-
-end Behavioral;
+    first_level_pro : first_level_propagate_4bit
+    PORT MAP(
+        x_128 => x_128,
+        y_128 => y_128,
+        p_32 => p_32);
+END Behavioral;
